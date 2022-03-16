@@ -1,5 +1,33 @@
-var http = require("http");
-http.createServer(function(req,res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Aloha world');
-}).listen(process.env.PORT || 3000);
+const express = require('express');
+const app = express();
+const port = 3000
+
+app.set('view engine', 'ejs');
+
+//this will allow us to serve up static files, CSS, images & JS
+app.use(express.static(__dirname));
+
+
+
+app.get('/', (req, res) => {
+  var title = 'Our home page';
+  res.render('pages/index',{'title':title});
+});
+
+
+app.get('/cupcakes', (req, res) => {
+  var title = 'Our Cupcakes Page';
+  res.render('pages/cupcakes',{'title':title});
+});
+app.get('/ice-cream', (req, res) => {
+  var title = 'Our Ice-cream Page';
+  res.render('pages/ice-cream',{'title':title});
+});
+app.get('/tiramisu', (req, res) => {
+  var title = 'Our Tiramisu Page';
+  res.render('pages/tiramisu',{'title':title});
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
